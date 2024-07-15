@@ -19,6 +19,8 @@ android {
             useSupportLibrary = true
         }
 
+        buildConfigField(type = "String", name = "API_KEY","\"2ecbcb519b9340bc9332b455f70adfd6\"")
+
     }
 
     buildTypes {
@@ -39,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -61,6 +64,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.lifecycle.viewmodel.compose)
 
     //Hilt
     implementation(libs.hilt.android)

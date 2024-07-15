@@ -4,11 +4,15 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 
-sealed class UiResult<T> {
+sealed class UiResult<T>(
+    val data: T? = null,
+    val message: String? = null
+) {
 
-    class Success<T>(val data: T) : UiResult<T>()
-    class Error<T>(val message: UiText) : UiResult<T>()
-    class Loading<T>(val message: UiText) : UiResult<T>()
+    data class Loading<T>(val messageText: String? = null) : UiResult<T>(message = messageText)
+    data class Success<T>(val successData: T) : UiResult<T>(data = successData)
+    data class Error<T>(val errorMessage: String? = null) : UiResult<T>(message = errorMessage)
+
 }
 
 sealed class UiText {

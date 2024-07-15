@@ -5,25 +5,28 @@ import com.google.gson.annotations.SerializedName
 
 @Keep
 data class NetworkNewsItem(
+    @SerializedName("source")
+    val source: Source?,
     @SerializedName("title")
-    val title: String,
+    val title: String?,
     @SerializedName("author")
-    val author: String,
+    val author: String?,
     @SerializedName("url")
-    val url: String,
+    val url: String?,
     @SerializedName("urlToImage")
-    val image: String,
+    val image: String?,
     @SerializedName("publishedAt")
-    val publishedAt: String,
+    val publishedAt: String?,
     @SerializedName("content")
-    val content: String
+    val content: String?
 )
 
 fun NetworkNewsItem.toNewsItem(): NewsItem = NewsItem(
-    title = title,
-    author = author,
-    url = url,
-    image = image,
-    publishedAt = publishedAt,
-    content = content
+    source = source?.name ?: "",
+    title = title ?: "",
+    author = author ?: "",
+    url = url ?: "",
+    image = image ?: "",
+    publishedAt = publishedAt ?: "",
+    content = content ?: ""
 )

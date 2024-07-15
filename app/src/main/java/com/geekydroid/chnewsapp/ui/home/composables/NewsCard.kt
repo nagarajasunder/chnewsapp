@@ -1,87 +1,103 @@
 package com.geekydroid.chnewsapp.ui.home.composables
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.tv.material3.Card
-import androidx.tv.material3.LocalTextStyle
-import androidx.tv.material3.Surface
+import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import coil.compose.AsyncImage
 import com.geekydroid.chnewsapp.R
+import com.geekydroid.chnewsapp.core.Utils
 import com.geekydroid.chnewsapp.ui.home.model.NewsItem
 
 
 @Composable
-fun NewsCard(modifier: Modifier = Modifier) {
-    val data by remember {
-        mutableStateOf(NewsItem(
-            title = "Elon Musk Donates ‘Sizable Amount’ of Money to Pro-Trump Super PAC: Report",
-            author = "Charisma Madarang",
-            url = "https://www.rollingstone.com/politics/politics-news/elon-musk-donates-trump-super-pac-1235059581/",
-            image = "https://www.rollingstone.com/wp-content/uploads/2024/07/elon-musk-trump-donate.jpg?w=1600&h=900&crop=1",
-            publishedAt = "2024-07-13T01:38:34Z",
-            content = "Despite Elon Muskwriting in March, “I am not donating money to either candidate for US President,” the billionaire has donated to a super political action committee working to elect former president … [+1630 chars]"
-        ))
-    }
+fun NewsCard(modifier: Modifier = Modifier, news: NewsItem) {
     Card(
         modifier = modifier
-            .width(400.dp)
-            .fillMaxHeight()
-            .padding(16.dp),
-        onClick = { /*TODO*/ }) {
+            .fillMaxWidth()
+            .padding(8.dp),
+        onClick = {}) {
 
-        Column(modifier = Modifier.padding(16.dp)) {
-            AsyncImage(
+        Column {
+            if (news.image.isNotEmpty()) {
+                AsyncImage(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                        .clip(RoundedCornerShape(8.dp)),
+                    placeholder = painterResource(id = R.drawable.placeholder),
+                    model = news.image, contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                )
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.placeholder),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp),
+                    contentScale = ContentScale.Crop
+                )
+            }
+            Text(
+                modifier = Modifier.padding(12.dp),
+                text = news.title,
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Left
+                )
+            )
+            Row(
                 modifier = Modifier
-                    .width(400.dp)
-                    .height(100.dp),
-                placeholder = painterResource(id = R.mipmap.ic_launcher),
-                model = data.image, contentDescription = null
-            )
-            Text(
-                text = data.title,
-                style = LocalTextStyle.current.copy(
-                    textAlign = TextAlign.Justify,
-                    fontWeight = FontWeight.Bold
+                    .fillMaxWidth()
+                    .padding(4.dp),
+                horizontalArrangement = Arrangement.End
+            ) {
+                if (news.source.isNotEmpty()) {
+                    Text(
+                        text = "source: ${news.source}",
+                        modifier = Modifier.padding(end = 4.dp, bottom = 4.dp),
+                        fontStyle = FontStyle.Italic,
+                        textAlign = TextAlign.Right
+                    )
+                }
+                Text(
+                    text = Utils.parseDateString(news.publishedAt),
+                    modifier = Modifier.padding(end = 8.dp, bottom = 4.dp),
+                    fontStyle = FontStyle.Italic,
+                    textAlign = TextAlign.Right
                 )
-            )
-            Text(
-                modifier = Modifier.padding(top = 16.dp),
-                text = data.content,
-                style = LocalTextStyle.current.copy(
-                    fontWeight = FontWeight.Normal
+            }
+            if (news.content.isNotEmpty()) {
+                Text(
+                    modifier = Modifier.padding(
+                        bottom = 16.dp,
+                        start = 12.dp,
+                        end = 12.dp
+                    ),
+                    text = news.content,
+                    textAlign = TextAlign.Left,
+                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 20.sp)
                 )
-            )
+            }
         }
     }
 }
 
-
-@Preview(device = Devices.TV_720p)
-@Composable
-fun NewsCardPreview(modifier: Modifier = Modifier) {
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        NewsCard()
-    }
-}
