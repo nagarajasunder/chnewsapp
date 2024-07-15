@@ -33,6 +33,7 @@ Once the build is successful, you can run the application from the android studi
 <img src="src/screenshots/home_page.png">
 
 ### Fetching News from Network
+While fetching the data from network the application will show an shimmer animation card as an loading indicator to the user.
 <img src="src/screenshots/fetching_news.png">
 
 ### Refresh News while holding D-Pad DOWN
