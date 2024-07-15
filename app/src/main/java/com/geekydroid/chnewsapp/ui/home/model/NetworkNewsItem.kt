@@ -17,6 +17,8 @@ data class NetworkNewsItem(
     val image: String?,
     @SerializedName("publishedAt")
     val publishedAt: String?,
+    @SerializedName("description")
+    val description:String?,
     @SerializedName("content")
     val content: String?
 )
@@ -28,5 +30,6 @@ fun NetworkNewsItem.toNewsItem(): NewsItem = NewsItem(
     url = url ?: "",
     image = image ?: "",
     publishedAt = publishedAt ?: "",
+    description = description?:"",
     content = content ?: ""
 )

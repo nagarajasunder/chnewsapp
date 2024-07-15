@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Chnewsapp</string>
+    <string name="no_news_found">No News Found!</string>
+    <string name="trending">Trending</string>
+    <string name="content">Content</string>
+    <string name="banner_image">Banner image</string>
+    <string name="category">category</string>
 </resources>

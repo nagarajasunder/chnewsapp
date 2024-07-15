@@ -7,5 +7,6 @@ data class NewsItem(
     val url: String,
     val image: String,
     val publishedAt: String,
+    val description:String,
     val content: String
 )

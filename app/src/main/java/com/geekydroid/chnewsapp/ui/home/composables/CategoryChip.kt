@@ -8,6 +8,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
@@ -15,6 +17,7 @@ import androidx.tv.material3.InputChip
 import androidx.tv.material3.InputChipDefaults
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
+import com.geekydroid.chnewsapp.R
 import com.geekydroid.chnewsapp.core.Constants.categories
 import com.geekydroid.chnewsapp.core.Constants.countryList
 
@@ -69,13 +72,13 @@ fun SelectableChip(
         selected = isSelected,
         trailingIcon = {
             if (isSelected) {
-                Icon(Icons.Default.Check, contentDescription = null)
+                Icon(Icons.Default.Check, contentDescription = stringResource(id = R.string.category))
             }
         },
         onClick = onClick,
         shape = InputChipDefaults.shape(hasAvatar = false, shape = RoundedCornerShape(16.dp)),
     ) {
-        Text(text = chipText, style = MaterialTheme.typography.titleLarge)
+        Text(text = chipText, style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal))
     }
 }
 

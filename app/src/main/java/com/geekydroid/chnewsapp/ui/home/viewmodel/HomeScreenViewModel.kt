@@ -12,6 +12,7 @@ import com.geekydroid.chnewsapp.ui.home.screenevents.NewsScreenEvents
 import com.geekydroid.chnewsapp.ui.model.UiResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -43,6 +44,7 @@ class HomeScreenViewModel @Inject constructor(private val newsRepository: NewsRe
                     news = UiResult.Loading(messageText = "Fetching the latest news...")
                 )
             )
+            delay(5000)
             when (val result = newsRepository.getNews(
                 _screenState.value.selectedCountryCode,
                 _screenState.value.selectedCategory.lowercase(Locale.getDefault())
