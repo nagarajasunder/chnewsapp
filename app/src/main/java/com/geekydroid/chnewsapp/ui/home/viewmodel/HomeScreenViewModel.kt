@@ -41,7 +41,7 @@ class HomeScreenViewModel @Inject constructor(private val newsRepository: NewsRe
             updateScreenState(
                 _screenState.value.copy(
                     isFetching = true,
-                    news = UiResult.Loading(messageText = "Fetching the latest news...")
+                    news = UiResult.Loading(messageText = "")
                 )
             )
             delay(5000)
@@ -53,7 +53,7 @@ class HomeScreenViewModel @Inject constructor(private val newsRepository: NewsRe
                     updateScreenState(
                         _screenState.value.copy(
                             isFetching = false,
-                            news = UiResult.Error(errorMessage = "Unable to fetch the news. Please try again!")
+                            news = UiResult.Error(errorMessage = "")
                         )
                     )
                 }
